@@ -22,20 +22,20 @@ function makePoint(x, y) {
 			context.fill(circle);
 			context.stroke(circle);
 		},
-		colour: //randomColour()
-		{
+		colour: {
+			//Clamp the random RGB values to be above 30 to ensure a minimum saturation
 			r: Math.max(Math.round(Math.random() * 255, 0), 30),
 			g: Math.max(Math.round(Math.random() * 255, 0), 30),
 			b: Math.max(Math.round(Math.random() * 255, 0), 30),
-		}// `rgb(${Math.max(Math.random(), 0.3) * 255} ${Math.max(Math.random(), 0.3) * 255} ${Math.max(Math.random(), 0.3) * 255})`
+		}
 	};
 }
 
-function clear() {
+function clearCanvas() {
 	context.fillStyle = "rgb(255 255 255)";
 	context.fillRect(0, 0, canvas.width, canvas.height);
 }
-clear();
+clearCanvas();
 
 const squaredEuclideanDistance = (x1, y1, x2, y2) => {
 	return (x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1);
@@ -64,8 +64,6 @@ function colourVoronoiCells() {
 			data[basePixelOffset + 1] = closestColour.g;
 			data[basePixelOffset + 2] = closestColour.b;
 			data[basePixelOffset + 3] = 255;
-			//console.log("Pixel", data[basePixelOffset + 0],data[basePixelOffset + 1],data[basePixelOffset + 2],data[basePixelOffset + 3]);
-			// console.log("Closest colour", closestColour);
 		}
 	}
 	context.putImageData(imd, 0, 0);
@@ -78,17 +76,27 @@ function drawPoints() {
 	}
 }
 
+function drawToScreen() {
+	clearCanvas();
+	colourVoronoiCells();
+	drawPoints();
+}
+
 canvas.addEventListener("click", (e) => {
 	const bdrect = canvas.getBoundingClientRect();
 	const canvasSpaceX = e.clientX - bdrect.left;
 	const canvasSpaceY = e.clientY - bdrect.top;
 	console.log("Click", canvasSpaceX, canvasSpaceY);
 	points.push(makePoint(canvasSpaceX, canvasSpaceY));
-	clear();
-	colourVoronoiCells();
-	drawPoints();
+
+	drawToScreen();
+});
+
+document.getElementById("clearButton").addEventListener("click", (e) => {
+	points = [];
+	clearCanvas();
 });
 
 
-console.log("Bounding Rect", canvas.getBoundingClientRect())
-drawPoints();
+console.log("Bounding Rect", canvas.getBoundingClientRect());
+drawToScreen();
