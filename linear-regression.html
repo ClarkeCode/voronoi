@@ -1,0 +1,36 @@
+
+<!doctype html>
+<html lang="en" style="background-color: #80808080;">
+<head>
+	<meta charset="utf-8">
+	<title>Linear Regression</title>
+	<meta name="description" content="Linear Regression">
+	<meta name="author" content="Robert Clarke">
+	<!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+	<link rel="stylesheet" href="linear-regression.css">
+</head>
+<body>
+	<script src="linear-regression.js" defer></script>
+	<div style="text-align: center;">
+		<h1>Linear Regression - Ordinary Least Mean Square</h1>
+		<canvas id="mapCanvas" width="800" height="600" style="border:0px solid #000000;"></canvas>
+	</div>
+	<div style="padding-left: 45%">
+		<button id="clearButton" type="button">Clear Points</button>
+		<div class="tooltip">
+			RSME = <label id="rmseScore">ABC</label>
+			<span class="tooltiptext">
+				<u>Root Mean Squared Error</u><br>
+				A measure of how well the line approximates the dataset, Lower = Better
+			</span>
+		</div>
+		<div class="tooltip">
+			R² = <label id="r2Score">ABC</label>
+			<span class="tooltiptext">
+				<u>Coefficient of Determination (R²):</u><br>
+				Ranges between 0 and 1, values closer to 1 indicate greater accuracy of the linear model
+			</span>
+		</div>
+	</div>
+</body>
+</html>
