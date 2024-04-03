@@ -1,0 +1,15 @@
+footer {
+	background-color: #606060;
+	position: fixed;
+	left: 0px;
+	bottom: 0px;
+	width: 100%;
+	text-align: center;
+	padding: 5px;
+
+	& button {
+		& a {
+			text-decoration: none;
+		}
+	}
+}
